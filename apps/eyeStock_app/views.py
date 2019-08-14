@@ -14,7 +14,7 @@ def registration(request):
                 return redirect('/')
         else:
                 hash1 = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-                Company.objects.create(name=request.POST["name"],address=request.POST['address'],email=request.POST['email'],password=hash1)
+                Company.objects.create(name=request.POST["name"],address=request.POST['address'],email=request.POST['email'],password=hash1.decode())
                 company= Company.objects.last()
                 request.session['company_id']= company.id
                 return redirect('/dashboard')
@@ -42,7 +42,7 @@ def process_login(request):
                 return redirect('/')
         else:
                 company_list = Company.objects.filter(email=request.POST['email'])
-                if bcrypt.checkpw(request.POST['password_log'].encode(),company_list[0].password.encode()):
+                if bcrypt.checkpw(request.POST['password'].encode(),company_list[0].password.encode()):
                         request.session['company_id'] = company_list[0].id
                         return redirect('/dashboard')
 
@@ -61,18 +61,24 @@ def add_product(request):
         return redirect('/dashboard')
 
 def add_vehicle(request):
-        Vehicle.objects.create(
-                year = request.POST['year'],
-                make = request.POST['make'],
-                model = request.POST['model'],
-                vin = request.POST['vin'],
-                stock_number = request.POST['stock_number']
-        )
-        vehicle = Vehicle.objects.last()
-        context = {
-                'vehicle':vehicle,
-        }
-        return redirect('/dashboard', context)
+        errors = Company.objects.vehicle_validator(request.POST)
+        if len(errors) > 0:
+                for key, value in errors.items():
+                        messages.error(request, value)
+                return redirect('/')
+        else:
+                Vehicle.objects.create(
+                        year = request.POST['year'],
+                        make = request.POST['make'],
+                        model = request.POST['model'],
+                        vin = request.POST['vin'],
+                        stock_number = request.POST['stock_number']
+                )
+                vehicle = Vehicle.objects.last()
+                context = {
+                        'vehicle':vehicle,
+                }
+                return redirect('/dashboard', context)
 
 def employee_form(request):
         return render(request, "eyeStock_app/employee_form.html")

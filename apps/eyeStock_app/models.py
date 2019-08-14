@@ -30,6 +30,18 @@ class UserManager(models.Manager):
             errors['invalid_e'] = "Email doesnt exist." 
         return errors
     
+    def vehicle_validator(self,postData):
+        errors = {}
+        if len(postData['vin']) == 0:
+            errors['vin'] = "Vehicle Identification number is needed."
+        if len(postData['stock_number']) == 0:
+            errors['stock_number'] = "Stock Number is needed."
+        elif len(Vehicle.objects.filter(vin = postData['vin'])) > 0:
+            errors['dup_vin'] = "The Vehicle Identification Number is already in system."
+        elif len(Vehicle.objects.filter(stock_number = postData['stock_number'])) > 0:
+            errors['dup_stock_number'] = "The stock number is already in the system."
+
+    
 
 class Company(models.Model):
     name = models.CharField(max_length = 255)
