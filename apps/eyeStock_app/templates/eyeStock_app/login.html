@@ -8,15 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log In - Register</title>
+    {% load static %}
 </head>
 <style>
-
+    .img1 {
+        width: 10%;
+    }
 </style>
 
 <body class="bg-info">
     <div class="card">
         <div class="card-header border-primary">
-            <h1>eyeStock</h1>
+            <img class="img1" src="{% static 'images/logo.png' %}" />
         </div>
 
         <div class="container mt-5 w-25">
@@ -30,7 +33,7 @@
                     </div>
                     <div class="form-group m-0">
                         <label for="password_log">Password:</label>
-                        <input type="password" class="form-control form-control-sm " name="password_log"
+                        <input type="password" class="form-control form-control-sm " name="password"
                             placeholder="Enter Password">
                     </div>
                     <footer>
@@ -84,12 +87,12 @@
             <p>&copy; Company 2019 - 2019</p>
         </footer>
 
-        <link rel="stylesheet " href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css " type="text/css "
-            media="all " />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js " type="text/javascript ">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css " type="text/css"
+            media="all" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js " type="text/javascripts">
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js "
-            type="text/javascript "></script>
+            type="text/javascript"></script>
 
         <script>
             $(document).ready(function () {
@@ -97,7 +100,7 @@
                     source: "/ajax_calls/search/ ",
                     minLength: 2,
                     open: function () {
-                        alert("boop ");
+                        alert("boop");
                         setTimeout(function () {
                             $('.ui-autocomplete').css('z-index', 99);
                         }, 0);

@@ -14,7 +14,7 @@ def registration(request):
                 return redirect('/')
         else:
                 hash1 = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-                Company.objects.create(name=request.POST["name"],address=request.POST['address'],email=request.POST['email'],password=hash1)
+                Company.objects.create(name=request.POST["name"],address=request.POST['address'],email=request.POST['email'],password=hash1.decode())
                 company= Company.objects.last()
                 request.session['company_id']= company.id
                 return redirect('/dashboard')
@@ -42,15 +42,37 @@ def process_login(request):
                 return redirect('/')
         else:
                 company_list = Company.objects.filter(email=request.POST['email'])
-                if bcrypt.checkpw(request.POST['password_log'].encode(),company_list[0].password.encode()):
+                if bcrypt.checkpw(request.POST['password'].encode(),company_list[0].password.encode()):
                         request.session['company_id'] = company_list[0].id
                         return redirect('/dashboard')
 
 def checkout(request):
+        products = Product.objects.all()
+        employees = Employee.objects.all()
+        context = {
+
+                'products' : products,
+                'employees' : employees
+
+
+
+        }
         return render(request, 'eyeStock_app/product_checkout.html')
 
 def products(request):
-        return render(request, "eyeStock_app/products.html")
+        if 'product_name' in request.GET:
+                product_name = request.GET['product_name']
+        if 'barcode' in request.GET:
+                barcode = request.GET['barcode']
+        if 'description' in request.GET:
+                description = request.GET['description']
+        
+        context = {
+                'product_name': product_name,
+                'barcode': barcode,
+                'description': description
+        }
+        return render(request, "eyeStock_app/products.html", context)
 
 def add_product(request):
         Product.objects.create(
@@ -61,18 +83,24 @@ def add_product(request):
         return redirect('/dashboard')
 
 def add_vehicle(request):
-        Vehicle.objects.create(
-                year = request.POST['year'],
-                make = request.POST['make'],
-                model = request.POST['model'],
-                vin = request.POST['vin'],
-                stock_number = request.POST['stock_number']
-        )
-        vehicle = Vehicle.objects.last()
-        context = {
-                'vehicle':vehicle,
-        }
-        return redirect('/dashboard', context)
+        errors = Company.objects.vehicle_validator(request.POST)
+        if len(errors) > 0:
+                for key, value in errors.items():
+                        messages.error(request, value)
+                return redirect('/')
+        else:
+                Vehicle.objects.create(
+                        year = request.POST['year'],
+                        make = request.POST['make'],
+                        model = request.POST['model'],
+                        vin = request.POST['vin'],
+                        stock_number = request.POST['stock_number']
+                )
+                vehicle = Vehicle.objects.last()
+                context = {
+                        'vehicle':vehicle,
+                }
+                return redirect('/dashboard', context)
 
 def employee_form(request):
         return render(request, "eyeStock_app/employee_form.html")
@@ -87,10 +115,45 @@ def add_employee(request):
         )
         employee = Employee.objects.last()
         request.session['employee_id'] = employee.id
-        return redirect('/employee_file')
+        return redirect('/employee_list')
 
-def employee_list(request):
-        return render(request, "eyeStock_app/employee_list.html")
+def employee_list(request,):
+        employees = Employee.objects.all()
+        context ={
+                'employees':employees,
+        }
+        return render(request, "eyeStock_app/employee_list.html", context)
+
+def employee_info(request, employee_id):
+        employee = Employee.objects.get(id=employee_id)
+        context ={
+                'employee':employee,
+        }      
+        return render(request,'eyeStock_app/employee_info.html', context)
+
+def delete_employee(request, employee_id):
+    delete_employee =Employee.objects.get(id=employee_id)
+    delete_employee.delete()
+    context = {
+        'delete_employee': delete_employee,
+    }
+    return redirect('/dashboard', context)
+
+def delete_product(request, product_id):
+    delete_product =Product.objects.get(id=product_id)
+    delete_product.delete()
+    context = {
+        'delete_product': delete_product,
+    }
+    return redirect('/dashboard', context)
+
+def delete_vehicle(request, vehicle_id):
+    delete_vehicle =Vehicle.objects.get(id=product_id)
+    delete_vehicle.delete()
+    context = {
+        'delete_vehicle': delete_vehicle,
+    }
+    return redirect('/dashboard', context)
 
 def logout(request):
         request.session.clear()
