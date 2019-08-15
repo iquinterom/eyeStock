@@ -127,13 +127,13 @@
             <form action="/add_product" method="POST">
                 {% csrf_token %}
                 <label for="product_name">Name of Product:</label>
-                <input type="text" name="product_name" id="product_name" value="product_name">
+                <input type="text" name="product_name" id="product_name" value="{{product_name}}">
 
                 <label for="barcode_number">Barcode Number:</label>
-                <input type="number" name="barcode_number" id="barcode_number" value="barcode">
+                <input type="number" name="barcode_number" id="barcode_number" value="{{barcode}}">
 
                 <label for="description">Description:</label>
-                <input type="text" name="description" id="description" value="description">
+                <input type="text" name="description" id="description" value="{{description}}">
 
                 <input type="submit" value="Add Product">
 
