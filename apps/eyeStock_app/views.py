@@ -47,10 +47,32 @@ def process_login(request):
                         return redirect('/dashboard')
 
 def checkout(request):
+        products = Product.objects.all()
+        employees = Employee.objects.all()
+        context = {
+
+                'products' : products,
+                'employees' : employees
+
+
+
+        }
         return render(request, 'eyeStock_app/product_checkout.html')
 
 def products(request):
-        return render(request, "eyeStock_app/products.html")
+        if 'product_name' in request.GET:
+                product_name = request.GET['product_name']
+        if 'barcode' in request.GET:
+                barcode = request.GET['barcode']
+        if 'description' in request.GET:
+                description = request.GET['description']
+        
+        context = {
+                'product_name': product_name,
+                'barcode': barcode,
+                'description': description
+        }
+        return render(request, "eyeStock_app/products.html", context)
 
 def add_product(request):
         Product.objects.create(
@@ -93,10 +115,45 @@ def add_employee(request):
         )
         employee = Employee.objects.last()
         request.session['employee_id'] = employee.id
-        return redirect('/employee_file')
+        return redirect('/employee_list')
 
-def employee_list(request):
-        return render(request, "eyeStock_app/employee_list.html")
+def employee_list(request,):
+        employees = Employee.objects.all()
+        context ={
+                'employees':employees,
+        }
+        return render(request, "eyeStock_app/employee_list.html", context)
+
+def employee_info(request, employee_id):
+        employee = Employee.objects.get(id=employee_id)
+        context ={
+                'employee':employee,
+        }      
+        return render(request,'eyeStock_app/employee_info.html', context)
+
+def delete_employee(request, employee_id):
+    delete_employee =Employee.objects.get(id=employee_id)
+    delete_employee.delete()
+    context = {
+        'delete_employee': delete_employee,
+    }
+    return redirect('/dashboard', context)
+
+def delete_product(request, product_id):
+    delete_product =Product.objects.get(id=product_id)
+    delete_product.delete()
+    context = {
+        'delete_product': delete_product,
+    }
+    return redirect('/dashboard', context)
+
+def delete_vehicle(request, vehicle_id):
+    delete_vehicle =Vehicle.objects.get(id=product_id)
+    delete_vehicle.delete()
+    context = {
+        'delete_vehicle': delete_vehicle,
+    }
+    return redirect('/dashboard', context)
 
 def logout(request):
         request.session.clear()

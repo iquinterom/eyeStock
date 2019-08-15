@@ -36,12 +36,12 @@
         }
 
         .img1 {
-            width: 25%;
+            width: 70%;
         }
 
         .img2 {
             display: inline-block;
-            width: 30%;
+            width: 15%;
 
         }
 
@@ -77,84 +77,98 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        #navbar{
+            text-decoration: none;
+            background-color:none;
+        }
     </style>
 </head>
 
 <body>
     <div id="main" class="container justify-content-center">
-        <div id="header" class="card-header border-primary">
-            <div id="logo">
-                <img class="img1" src="{% static 'images/logo.png' %}" />
-                <h1>Smart Inventory Control</h1>
-            </div>
+        <nav class="navbar navbar-dark bg-info flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/dashboard"><img class="img1"
+                    src="{% static 'images/logo.png' %}" /></a>
 
+            <div id="navbar">
+                <ul class="navbar-nav list-group list-group-horizontal mb-3">
+                    <li class="nav-item list-group-item">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li><br>
+                    <li class="nav-item list-group-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item list-group-item">
+                        <a class="nav-link" href="#">Employees</a>
+                    </li>
+                    <li class="nav-item list-group-item">
+                        <a class="nav-link" href="#" >Reports</a>
+                    </li>
+                </ul>
+            </div>
             <div class="dropdown">
                 <a class="dropbtn"><img class="img2" src="{% static 'images/login2.png' %}" /></a>
                 <div class="dropdown-content">
-                    <a href="#">Account Info</a>
+                    <a href="/company_info">Account Info</a>
                     <form action="/logout" method="post">
                         <input class="btn btn-primary btn-block active" type="submit" value="Log Out">
                     </form>
                 </div>
-
-            </div>
-            <div id="navigation">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" href="/dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/employee">Employee</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/reports">Reports</a></li>
-                </ul>
             </div>
 
-            <!-- This is to add the product -->
 
-            <div id="product" class="form-group">
-                <h3>Add Product</h3>
-                <form action="/add_product" method="POST">
-                    {% csrf_token %}
-                    <label for="product_name">Name of Product:</label>
-                    <input type="text" name="product_name" id="product_name">
+        </nav>
+        
 
-                    <label for="barcode_number">Barcode Number:</label>
-                    <input type="number" name="barcode_number" id="barcode_number">
+        <!-- This is to add the product -->
 
-                    <label for="description">Description:</label>
-                    <input type="text" name="description" id="description">
+        <div id="product" class="form-group">
+            <h3>Add Product</h3>
+            <form action="/add_product" method="POST">
+                {% csrf_token %}
+                <label for="product_name">Name of Product:</label>
+                <input type="text" name="product_name" id="product_name" value="product_name">
 
-                    <input type="submit" value="Add Product">
+                <label for="barcode_number">Barcode Number:</label>
+                <input type="number" name="barcode_number" id="barcode_number" value="barcode">
 
+                <label for="description">Description:</label>
+                <input type="text" name="description" id="description" value="description">
 
-                </form>
-
-            </div>
-
-            <!-- THIS IS TO ADD VEHICLES -->
+                <input type="submit" value="Add Product">
 
 
-            <div id="vehicles" class="form-group">
-                <h3>Add Vehicle</h3>
-                <form action="/add_vehicle" method="POST">
-                    {% csrf_token %}
-                    <label for="year">Year:</label>
-                    <input type="text" name="year" id="year">
+            </form>
 
-                    <label for="make">Make:</label>
-                    <input type="text" name="make" id="make">
-
-                    <label for="model">Model:</label>
-                    <input type="text" name="model" id="model">
-
-                    <label for="vin">Vehicle Identification Number:</label>
-                    <input type="text" name="vin" id="vin">
-
-                    <label for="stock_number">Stock Number:</label>
-                    <input type="text" name="stock_number" id="stock_number">
-
-                    <input type="submit" value="Add Vehicle">
-
-                </form>
-            </div>
         </div>
+
+        <!-- THIS IS TO ADD VEHICLES -->
+
+
+        <div id="vehicles" class="form-group">
+            <h3>Add Vehicle</h3>
+            <form action="/add_vehicle" method="POST">
+                {% csrf_token %}
+                <label for="year">Year:</label>
+                <input type="text" name="year" id="year">
+
+                <label for="make">Make:</label>
+                <input type="text" name="make" id="make">
+
+                <label for="model">Model:</label>
+                <input type="text" name="model" id="model">
+
+                <label for="vin">Vehicle Identification Number:</label>
+                <input type="text" name="vin" id="vin">
+
+                <label for="stock_number">Stock Number:</label>
+                <input type="text" name="stock_number" id="stock_number">
+
+                <input type="submit" value="Add Vehicle">
+
+            </form>
+        </div>
+    </div>
 
 </body>
 

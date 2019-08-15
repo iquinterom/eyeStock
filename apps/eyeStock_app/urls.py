@@ -14,6 +14,10 @@ urlpatterns = [
     url(r'^employee_form$',views.employee_form),
     url(r'^add_employee$',views.add_employee),
     url(r'^employee_list$',views.employee_list),
+    url(r'^employee_info/(?P<employee_id>\d+)$',views.employee_info),
     url(r'^logout$',views.logout),
+    url(r'^delete_product/(?P<product_id>\d+)$',views.delete_product),
+    url(r'^delete_vehicle/(?P<vehicle_id>\d+)$',views.delete_vehicle),
+    url(r'^delete_employee/(?P<employee_id>\d+)$',views.delete_employee)
 
 ]
