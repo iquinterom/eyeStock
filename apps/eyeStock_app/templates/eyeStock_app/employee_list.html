@@ -43,13 +43,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file"></span> Products
+                            <a class="nav-link" href="/checkout">
+                                <span data-feather="file"></span> Checkout
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/reports">
+                            <a class="nav-link disabled" href="/reports">
                                 <span data-feather="bar-chart-2"></span> Reports
                             </a>
                         </li>
@@ -81,23 +81,7 @@
                             src="{% static 'images/groupemployee.jpg' %}" width="450px" /></svg>
                     <div class="card-body">
 
-                            <ul>
-                                <li>{{employee.first_name}} {{employee.last_name}}</li>
-                                <li>{{employee.employee_address}}</li>
-                                <li>{{employee.phone_number}}</li>
-                            </ul>
 
-
-                      
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary"><a
-                                        href="/edit">Edit</a></button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary"><a
-                                        href="/delete_employee/{{employee.id}}">Delete</a></button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -108,7 +92,7 @@
         </div>
     </div>
     <footer class="container font-italic">
-        <p>&copy; eyeStock 2019 - 2019</p>
+        <p>&copy; eyeStock 2019</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

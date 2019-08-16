@@ -87,8 +87,7 @@
 <body>
     <div id="main" class="container justify-content-center">
         <nav class="navbar navbar-dark bg-info flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/dashboard"><img class="img1"
-                    src="{% static 'images/logo.png' %}" /></a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/dashboard">eyeStock</a>
 
             <div id="navbar">
                 <ul class="navbar-nav list-group list-group-horizontal mb-3">
@@ -99,10 +98,10 @@
                         <a class="nav-link" href="#">Products</a>
                     </li>
                     <li class="nav-item list-group-item">
-                        <a class="nav-link" href="#">Employees</a>
+                        <a class="nav-link" href="/employee_list">Employees</a>
                     </li>
                     <li class="nav-item list-group-item">
-                        <a class="nav-link" href="#" >Reports</a>
+                        <a class="nav-link desabled" href="/report" >Reports</a>
                     </li>
                 </ul>
             </div>
@@ -134,6 +133,9 @@
 
                 <label for="description">Description:</label>
                 <input type="text" name="description" id="description" value="{{description}}">
+
+                <label for="quantity">Quantity</label>
+                <input type="text" name="quantity" id="quantity">
 
                 <input type="submit" value="Add Product">
 
