@@ -59,10 +59,16 @@ def checkout(request):
 def products(request):
         if 'product_name' in request.GET:
                 product_name = request.GET['product_name']
+        else:
+                product_name = ""
         if 'barcode' in request.GET:
                 barcode = request.GET['barcode']
+        else:
+                barcode = ""
         if 'description' in request.GET:
                 description = request.GET['description']
+        else:
+                description = ""
 
         context = {
                 'product_name': product_name,
@@ -72,6 +78,8 @@ def products(request):
         return render(request, "eyeStock_app/products.html", context)
 
 def add_product(request):
+        if 'product_name' not in request.POST:
+                return redirect('/dashboard')
         Product.objects.create(
                 product_name = request.POST['product_name'], 
                 barcode_number= request.POST['barcode_number'],
@@ -79,6 +87,7 @@ def add_product(request):
                 quantity = request.POST['quantity']
                 )
         return redirect('/dashboard')
+
 def edit_product(request, product_id):
         return render(request, "eyeStock_app/edit_product.html")
 
