@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^checkout$',views.checkout),
     url(r'^products$',views.products),
     url(r'^add_product$',views.add_product),
+    url(r'^edit_product/(?P<product_id>\d+)$',views.edit_product),
     url(r'^add_vehicle$',views.add_vehicle),
     url(r'^employee_form$',views.employee_form),
     url(r'^add_employee$',views.add_employee),

@@ -52,12 +52,9 @@ def checkout(request):
         context = {
 
                 'products' : products,
-                'employees' : employees
-
-
-
+                'employees' : employees,
         }
-        return render(request, 'eyeStock_app/product_checkout.html')
+        return render(request, 'eyeStock_app/product_checkout.html', context)
 
 def products(request):
         if 'product_name' in request.GET:
@@ -66,7 +63,7 @@ def products(request):
                 barcode = request.GET['barcode']
         if 'description' in request.GET:
                 description = request.GET['description']
-        
+
         context = {
                 'product_name': product_name,
                 'barcode': barcode,
@@ -78,9 +75,25 @@ def add_product(request):
         Product.objects.create(
                 product_name = request.POST['product_name'], 
                 barcode_number= request.POST['barcode_number'],
-                description = request.POST ['description']
+                description = request.POST ['description'],
+                quantity = request.POST['quantity']
                 )
         return redirect('/dashboard')
+def edit_product(request, product_id):
+        return render(request, "eyeStock_app/edit_product.html")
+
+def process_edit_product(request, product_id):
+        product= Product.objects.get(id=show_id)
+        product.product_name = request.POST['product_name']
+        product.description = request.POST['description']
+        product.save()
+        context = {
+                'product':product,
+                'product.product_name': product.product_name,
+                'product.description': productct.description,
+        }
+
+        return render(f"/edit_product/{product.id}", context)
 
 def add_vehicle(request):
         errors = Company.objects.vehicle_validator(request.POST)
@@ -148,7 +161,7 @@ def delete_product(request, product_id):
     return redirect('/dashboard', context)
 
 def delete_vehicle(request, vehicle_id):
-    delete_vehicle =Vehicle.objects.get(id=product_id)
+    delete_vehicle =Vehicle.objects.get(id=vehicle_id)
     delete_vehicle.delete()
     context = {
         'delete_vehicle': delete_vehicle,

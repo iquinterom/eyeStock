@@ -47,7 +47,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/reports">
+                            <a class="nav-link disabled" href="/reports">
                                 <span data-feather="bar-chart-2"></span> Reports
                             </a>
                         </li>
@@ -56,9 +56,10 @@
 
                     <h6
                         class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>List of Employees List of Employees</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
+                        
+                        <a class="d-flex align-items-center text-muted" href="/employee_list">
                             <span data-feather="plus-circle"></span>
+                            List of Employees
                         </a>
                     </h6>
                     {% for employee in employees%}
@@ -90,8 +91,6 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary"><a
-                                        href="/edit">Edit</a></button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary"><a
                                         href="/delete_employee/{{employee.id}}">Delete</a></button>
                             </div>

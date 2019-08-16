@@ -1,43 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
-    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{% static 'css/some.css' %}">
     <style>
-        /* *{
-            border: 1px solid purple;
-        } */
-        body {
-            background:linear-gradient(45deg, rgba(152, 152, 152, 0.07) 0%, rgba(152, 152, 152, 0.07) 48%,rgba(136, 136, 136, 0.07) 48%, rgba(136, 136, 136, 0.07) 100%),linear-gradient(45deg, rgba(235, 235, 235, 0.06) 0%, rgba(235, 235, 235, 0.06) 79%,rgba(218, 218, 218, 0.06) 79%, rgba(218, 218, 218, 0.06) 100%),linear-gradient(135deg, rgba(12, 12, 12, 0.04) 0%, rgba(12, 12, 12, 0.04) 30%,rgba(79, 79, 79, 0.04) 30%, rgba(79, 79, 79, 0.04) 100%),linear-gradient(45deg, rgba(173, 173, 173, 0.03) 0%, rgba(173, 173, 173, 0.03) 66%,rgba(245, 245, 245, 0.03) 66%, rgba(245, 245, 245, 0.03) 100%),linear-gradient(135deg, rgba(84, 84, 84, 0.06) 0%, rgba(84, 84, 84, 0.06) 51%,rgba(165, 165, 165, 0.06) 51%, rgba(165, 165, 165, 0.06) 100%),linear-gradient(45deg, rgba(15, 15, 15, 0.02) 0%, rgba(15, 15, 15, 0.02) 14%,rgba(95, 95, 95, 0.02) 14%, rgba(95, 95, 95, 0.02) 100%),linear-gradient(0deg, rgba(34, 34, 34, 0.05) 0%, rgba(34, 34, 34, 0.05) 58%,rgba(98, 98, 98, 0.05) 58%, rgba(98, 98, 98, 0.05) 100%),linear-gradient(90deg, rgb(2, 110, 165),rgb(50, 216, 218))
+        .container-fluid {
+            margin-top: 2.5em;
         }
 
-        #main {
-            background: linear-gradient(0deg, #FFF 0%, transparent 100%), linear-gradient(90deg, #FFF 0%, transparent 100%), linear-gradient(135deg, rgba(51, 51, 51, 0.1) 0%, rgba(51, 51, 51, 0.1) 66%, rgba(249, 249, 249, 0.1) 66%, rgba(249, 249, 249, 0.1) 100%), linear-gradient(0deg, rgba(231, 231, 231, 0.05) 0%, rgba(231, 231, 231, 0.05) 83%, rgba(255, 255, 255, 0.05) 83%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(0deg, rgba(32, 32, 32, 0.1) 0%, rgba(32, 32, 32, 0.1) 51%, rgba(138, 138, 138, 0.1) 51%, rgba(138, 138, 138, 0.1) 100%), linear-gradient(0deg, rgba(79, 79, 79, 0.07) 0%, rgba(79, 79, 79, 0.07) 9%, rgba(52, 52, 52, 0.07) 9%, rgba(52, 52, 52, 0.07) 100%), linear-gradient(135deg, rgba(154, 154, 154, 0.05) 0%, rgba(154, 154, 154, 0.05) 82%, rgba(76, 76, 76, 0.05) 82%, rgba(76, 76, 76, 0.05) 100%), linear-gradient(0deg, rgba(226, 226, 226, 0.1) 0%, rgba(226, 226, 226, 0.1) 87%, rgba(158, 158, 158, 0.1) 87%, rgba(158, 158, 158, 0.1) 100%), linear-gradient(45deg, rgba(177, 177, 177, 0.1) 0%, rgba(177, 177, 177, 0.1) 82%, rgba(199, 199, 199, 0.1) 82%, rgba(199, 199, 199, 0.1) 100%), linear-gradient(135deg, rgba(41, 41, 41, 0.04) 0%, rgba(41, 41, 41, 0.04) 10%, rgba(28, 28, 28, 0.04) 10%, rgba(28, 28, 28, 0.04) 100%), linear-gradient(90deg, rgb(174, 174, 174), rgb(181, 181, 181))
-        }
-
-        #navigation {
-            text-decoration: none;
-        }
-
-        .nav {
-            background: lightslategray;
-        }
-
-        .nav-item {
-            background: cornflowerblue;
-        }
-
-        h1 {
-            color: rgba(175, 169, 184, 0.822);
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            font-size: 20px;
+        .col-md-8 {
+            margin-left: 150px;
         }
 
         .img1 {
@@ -82,87 +60,142 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-        .nav-item{
+
+        .nav-item {
             color: white;
         }
     </style>
-
+    <title>Dashboard</title>
 </head>
 
 <body>
-    <div id="main" class="container justify-content-center">
-        <div id="header" class="card-header border-primary">
-            <div id="logo">
-                <img class="img1" src="{% static 'images/logo.png' %}" />
-                <h1>Smart Inventory Control</h1>
-            </div>
-
-            <div class="dropdown">
-                <a class="dropbtn"><img class="img2" src="{% static 'images/login2.png' %}" /></a>
-                <div class="dropdown-content">
-                    <a href="#">Account Info</a>
-                    <form action="/logout" method="post">
-                        {% csrf_token %}
-                        <input class="btn btn-primary btn-block active" type="submit" value="Log Out">
-                    </form>
+    <nav class="navbar navbar-dark fixed-top bg-info flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/dashboard">eyeStock</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <div class="dropdown">
+                    <a class="dropbtn"><img class="img2" src="{% static 'images/login2.png' %}" /></a>
+                    <div class="dropdown-content">
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-primary btn-block active" type="submit" value="Log Out">
+                        </form>
+                    </div>
                 </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/dashboard">
+                                <span data-feather="home"></span> Dashboard <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/checkout">
+                                <span data-feather="file"></span> Checkout
+                            </a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/employee_list">
+                                <span data-feather="bar-chart-2"></span> Employees
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/reports">
+                                <span data-feather="bar-chart-2"></span>Reports
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div>
+                        <h3>Inventory</h3>
+                        <table class="table table-striped mb-3 rounded">
+                            <thead>
+                                <th>Product</th>
+                                <th>Description</th>
+                                <th>Barcode</th>
+                                <th>Quantity</th>
+                                <th></th>
+                            </thead>
+                            {%for product in products%}
+                            <tr>
+                                <td>{{product.product_name}}</td>
+                                <td>{{product.description}}</td>
+                                <td>{{product.barcode_number}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>
+                                    <a class="btn btn-info" href="/delete_product/{{product.id}}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <br><br>
+
+                    </div>
+                    <div class="table table-striped mb-3">
+                        <h3>Vehicles</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Stock Number</th>
+                                <th>Year</th>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>VIN</th>
+                                <th></th>
+                            </thead>
+                            {% for vehicle in vehicles%}
+                            <tr>
+                                <td>{{vehicle.stock_number}}</td>
+                                <td>{{vehicle.year}}</td>
+                                <td>{{vehicle.make}}</td>
+                                <td>{{vehicle.model}}</td>
+                                <td>{{vehicle.vin}}</td>
+                                <td>
+                                   <a class="btn btn-info" href="/delete_vehicle/{{vehicle.id}}">Delete</a>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </table>
+
+
+
+
+                    </div>
+                </div>
             </div>
-            <div id="navigation">
-                <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="/checkout">Checkout</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/employee_list">Employee</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Reports</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Inventory</h3>
-                <table class="table table-striped mb-3">
-                    <thead>
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Barcode</th>
-                        <th>Quantity</th>
-                    </thead>
-                    {%for product in products%}
-                    <tr>
-                        <td>{{product.product_name}}</td>
-                        <td>{{product.description}}</td>
-                        <td>{{product.barcode_number}}</td>
-                        <td></td>
-                    </tr>
-                    {% endfor %}
-                </table>
 
-            </div>
-            <div class="table table-striped mb-3">
-                <h3>Vehicles</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <th>Stock Number</th>
-                        <th>Year</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>VIN</th>
-                    </thead>
-                    {% for vehicle in vehicles%}
-                    <tr>
-                        <td>{{vehicle.stock_number}}</td>
-                        <td>{{vehicle.year}}</td>
-                        <td>{{vehicle.make}}</td>
-                        <td>{{vehicle.model}}</td>
-                        <td>{{vehicle.vin}}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+        </div>
+        <div class="jumbotron bg-info">
 
-
-
-
-            </div>
+        </div>
+    </div>
+    <footer class="container font-italic">
+        <p>&copy; eyeStock 2019</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </body>
-
 
 
 </html>
